@@ -1,0 +1,43 @@
+#reference https://forge.puppet.com/puppetlabs/postgresql#resource-postgresqlserverrole
+class { 'postgresql::server':
+  ip_mask_deny_postgres_user => '0.0.0.0/32',
+  ip_mask_allow_all_users    => '0.0.0.0/0',
+  listen_addresses           => '*',
+  ipv4acls                   => ['hostssl all johndoe 192.168.56.0/24 cert'],
+  postgres_password          => '123456',
+}
+
+#Create a database
+postgresql::server::db { 'mydatabasename':
+  user     => 'mydatabaseuser',
+  password => postgresql_password('mydatabaseuser', 'mypassword'),
+}
+
+#Manage users, roles, and permissions
+
+postgresql::server::role { 'marmot':
+password_hash => postgresql_password('marmot', 'mypasswd'),
+}
+
+postgresql::server::database_grant { 'test1':
+  privilege => 'ALL',
+  db        => 'test1',
+  role      => 'marmot',
+}
+
+postgresql::server::table_grant { 'my_table of test2':
+  privilege => 'ALL',
+  table     => 'my_table',
+  db        => 'test2',
+  role      => 'marmot',
+}
+
+#Create an access rule for pg_hba.conf
+postgresql::server::pg_hba_rule { 'allow application network to access app database':
+  description => "Open up PostgreSQL for access from 200.1.2.0/24",
+  type        => 'host',
+  database    => 'app',
+  user        => 'app',
+  address     => '200.1.2.0/24',
+  auth_method => 'md5',
+}
