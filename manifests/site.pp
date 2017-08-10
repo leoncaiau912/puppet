@@ -11,7 +11,7 @@ file { "sshdconfig":
   },
   owner => root,
   group => root,
-  mode  => 644,
+  mode  => 0644,
 }
 
 Exec { path => "/usr/bin:/bin:/usr/sbin:/sbin" }
@@ -22,11 +22,11 @@ class unix {
         "/etc/passwd": 
             owner => "root", 
             group => "root", 
-            mode  => 644;
+            mode  => 0644;
         "/etc/shadow": 
             owner => "root", 
             group => "root", 
-            mode  => 440;
+            mode  => 0440;
     }
 }
 
@@ -39,7 +39,7 @@ class ubuntu inherits unix {
 
 file { "/var/www/my/file":
     source => "/tmp/example-ip",
-    mode   => 666
+    mode   => 0666
 }
 
 group { "hmy":
@@ -131,3 +131,7 @@ exec { "tar xvf /my/tar/file.tar":
 
 
 include motd,puppet
+include motd::file2
+#root@server:/etc/puppet/modules/motd/manifests# vi init.pp
+include motd::dir1
+include motd::dir2

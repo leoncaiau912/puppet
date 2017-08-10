@@ -3,7 +3,7 @@ class puppet::install{
 }
 class puppet::puppet_install{
   package { 'puppet':
-    ensure => $operatingsystemmajrelease ?{ #判断系统版本
+    ensure => $operatingsystemmajrelease ?{ 
       14.04 => '3.8.7-1puppetlabs1',
       6 => '2.7.25-1.el6',
     }

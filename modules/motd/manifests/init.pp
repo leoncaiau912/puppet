@@ -12,3 +12,40 @@ class motd{                 #定义一个类叫motd
   }
 }
 
+class motd::file2 {
+  file{ "/etc/file2":
+    owner  => "puppet",
+    group  => "puppet",
+    ensure => link,
+    target => "/etc/passwd",
+  }
+}
+
+class motd::dir1 {
+  file{ "/etc/dir1":
+    owner   => "puppet",
+    group   => "puppet",
+    mode    => 0700,
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    ignore  => "dir2",
+  }
+  notify { "This is dir1！":
+#   withpath => true,
+  }
+}
+
+class motd::dir2 {
+  file{ "/etc/dir2":
+    owner   => "puppet",
+    group   => "puppet",
+    mode    => 0700,
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    ignore  => "dir1",
+  }
+}
