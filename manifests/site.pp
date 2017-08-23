@@ -135,3 +135,6 @@ include motd::file2
 #root@server:/etc/puppet/modules/motd/manifests# vi init.pp
 include motd::dir1
 include motd::dir2
+
+
+import 'nodes.pp'
