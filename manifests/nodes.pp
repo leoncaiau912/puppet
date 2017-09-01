@@ -1,3 +1,3 @@
 node 'node' {
-	include sudo,ssh
+	include sudo,ssh,postfix
 }
