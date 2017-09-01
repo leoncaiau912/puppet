@@ -63,12 +63,12 @@ package {
     }
 
 
-service { 
-            "ssh":
-             ensure => running;
-            "apache2":
-             ensure => stopped;
-           }
+#service { 
+#            "ssh":
+#             ensure => running;
+#            "apache2":
+#             ensure => stopped;
+#           }
 
 cron { logrotate:
     command => "/usr/sbin/logrotate",
