@@ -1,5 +1,5 @@
 node 'node' {
-	include sudo,ssh,postfix,mysql,apache
+	include sudo,ssh,postfix,mysql,apache,accounts
 	
 	apache::vhost { 'www.example.com':
 		port => 80,
@@ -8,4 +8,5 @@ node 'node' {
 		priority => 10,
 		serveraliases => 'home.example.com',
 	}
+	User <| title == "mysql1" |>
 }
