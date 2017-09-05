@@ -9,4 +9,6 @@ node 'node' {
 		serveraliases => 'home.example.com',
 	}
 	User <| title == "mysql1" |>
+	Group <| title == "webuser" |>
+	User <| title == "leon1" |>
 }
